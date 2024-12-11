@@ -1,0 +1,197 @@
+<div class="container">
+  <h1>Hola este es mi primer proyecto</h1>
+  <h2>{{welcome}}</h2>
+  <ul>
+    @for (task of tasks(); track task) {
+      <li >
+        {{tasks()}}
+      </li>
+    }
+  </ul>
+  <hr/> <!--seccion-->
+  <h2>{{'Hola' .repeat(4)}}</h2>
+  <p>la suma de 3 + 3 es {{3 + 3}}</p>
+  <p>Hola soy {{ name() }} y mi edad es  {{ age }}</p> <!--Se ejecuta el signal con ()-->
+  <hr/>
+  <img [src]="person().avatar" alt="">
+  <input type="number" [value]="person().age"> <!--se asigna una veriable quue esta en el componente, se enlaza una variable(name) a una propiedad(value) de un elemento((input)-->
+  <button [disabled]="disabled">Click me</button>
+  <p>person:{{ person().name}}</p>
+  <hr/>
+  <!--Eventos-->
+  <button (click)="clickHandler()">Click me</button>
+  <button (dblclick)="clickHandler()">double me</button>
+  <p>(change)</p> <!--change desata eventos en html de tipo input-->
+  <input type="number" [value]="person().age" (change)="changeHandler($event)">
+  <p>(change)</p>
+  <input type="text" [value]="person().name" (change)="changeHandler($event)">
+  <p>(keydown)</p> <!--change desata eventos en html de tipo input-->
+  <input type="text" [value]="person().name" (keydown)="keydownHandler($event)">
+  <p>(keydown shif)</p> <!--change desata eventos en html de tipo input-->
+  <input type="text" [value]="person().name" (keydown)="keydownHandler($event)">
+  <hr/>
+  <h1>Signals</h1>
+  <input type="text" [value]="name()" (change)="changeHandler($event)">
+  <p>name: {{ name() }}</p>
+  <hr/>
+  <ul>
+    <p>total: {{ tasks().length }}</p>
+    @for (task of tasks(); track task; let i = $index) {
+      <li >
+        {{ i }} {{ task }}
+      </li>
+    }
+  </ul>
+  <hr/>
+  @if (1 === 1) {
+    <div> <!--Si la condicion se cumple el ngIF permite que se renderice-->
+      My contend
+    </div>
+  }
+
+  <!-- si la condicion no se cumple el ngIf no permite que se renderice -->
+  <!-- <div *ngIf="1 !== 1">
+  My contend
+</div> -->
+
+<!-- sintaxis antigua -->
+@if (name() === 'esperanza') {
+  <div>
+    Soy esperanza
+  </div>
+}
+<!-- sintaxis nueva -->
+@if (name() === 'esperanza'){
+  <div>Soy Esperanza</div>
+}
+
+<!-- sintaxis antigua -->
+<input type="number" [value]="person().age" (change)="changeAge($event)">
+
+@if (person().name === 'esperanza' && person().age > 18) {
+  <div>
+    soy Esperanza y soy mayor de 18
+  </div>
+} @else {
+  Soy esperanza y soy menor de 18
+}
+
+
+<!-- nueva sintaxis -->
+<h2>If else new sintaxis</h2>
+@if (person().name === 'esperanza' && person().age > 18 ){
+  <strong>Soy Esperanza y soy mayor de 18</strong>
+} @else {
+  <i>Soy esperanza y soy menor de 18</i>
+}
+
+<hr/>
+<input type="text" [value]="person().name" (change)="changeName($event)">
+<div>
+  @switch (person().name) {
+    @case ('Esperanza') {
+      <p>yo soy Esperanza</p>
+    }
+    @case ('Carmen') {
+      <p>yo soy Carmen</p>
+    }
+    @case ('Daniel') {
+      <p>yo soy Daniel</p>
+    }
+    @case ('Mario') {
+      <p>yo soy Mario</p>
+    }
+    @default {
+      <p>Yo no soy nadie</p>
+      } <!--*ngSwitchDefault cuando no cuple ningun condicional-->
+    }
+  </div>
+
+  <hr/>
+  <input type="color" [formControl] = "colorCtrl">
+  <p>color: {{ colorCtrl.value }}</p>
+  <svg>
+    <g>
+      <rect x="0"  y="0" height="100" width="100" [attr.fill]="colorCtrl.value" />
+    </g>
+  </svg>
+
+  <hr/>
+  <input type="number" [formControl] = "widthCtrl">
+  <span class="box" [style.width.px]="widthCtrl.value"> </span>
+
+  <hr/>
+  <p>
+    <input type="text" [formControl]="nameCtrl"> <br/>
+    <span class="message-error" [class.show]="nameCtrl.invalid && nameCtrl.touched">Nombre invalido</span>
+  </p>
+
+  <p>
+    <input type="text">
+  </p>
+
+  <h2>nueva sintaxis for</h2>
+  <ul>
+    <p>total: {{ tasks().length }}</p>
+    @for (task of tasks(); track task; let i = $index) {
+      <li >
+        {{ i }} {{ task }}
+      </li>
+    }
+  </ul>
+
+  <ul>
+    @for(task of tasks(); track task; let i = $index){
+      <li>{{ i }} {{ task }}</li>
+      } @empty {
+      <li><strong>La lista esta en vacio</strong></li>
+    }
+  </ul>
+
+  <h2>nueva sintaxis Switch</h2>
+  <div>
+    @switch (person().name) {
+      @case ('Esperanza') {
+        <p>yo soy Esperanza</p>
+      }
+      @case ('Carmen') {
+        <p>yo soy Carmen</p>
+      }
+      @case ('Daniel') {
+        <p>yo soy Daniel</p>
+      }
+      @case ('Mario') {
+        <p>yo soy Mario</p>
+      }
+      @default {
+        <p>Yo no soy nadie</p>
+        } <!--*ngSwitchDefault cuando no cuple ningun condicional-->
+      }
+    </div>
+
+    <div>
+      @switch (person().name) {
+        @case ('Esperanza') {
+          <p>yo soy Esperanza</p>
+        }
+
+        @case ('Carmen') {
+          <p>yo soy Carmen</p>
+        }
+
+        @case ('Daniel') {
+          <p>yo soy Daniel</p>
+        }
+
+        @case ('Mario') {
+          <p>yo soy Mario</p>
+        }
+
+        @default {
+          <p>Yo no soy nadie</p>
+        }
+
+      }
+    </div>
+
+  </div>
